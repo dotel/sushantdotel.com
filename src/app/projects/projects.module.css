@@ -1,0 +1,21 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: var(--content-width);
+  padding: 64px var(--viewport-padding);
+  margin: 0 auto;
+}
+
+.mainHeading {
+  padding-bottom: 64px;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+}
+
+
+.projectsList {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
