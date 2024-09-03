@@ -7,6 +7,7 @@ import styles from './BlogHero.module.css';
 function BlogHero({
   title,
   publishedOn,
+  tags = [],
   className,
   ...delegated
 }) {
@@ -28,6 +29,15 @@ function BlogHero({
             {humanizedDate}
           </time>
         </p>
+        {tags.length > 0 && (
+          <ul className={styles.tagList}>
+            {tags.map(tag => (
+              <li key={tag} className={styles.tagChip}>
+                {tag}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </header>
   );

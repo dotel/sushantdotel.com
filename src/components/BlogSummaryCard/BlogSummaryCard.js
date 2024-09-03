@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { format } from 'date-fns';
+import { format, isValid, parseISO } from 'date-fns';
 
 import Card from '@/components/Card';
 
@@ -13,17 +13,24 @@ function BlogSummaryCard({
   abstract,
 }) {
   const href = `/${slug}`;
-  const humanizedDate = format(
-    new Date(publishedOn),
-    'MMMM do, yyyy'
-  );
+  const parsedDate =
+    typeof publishedOn === 'string'
+      ? parseISO(publishedOn)
+      : new Date(publishedOn);
+  const hasValidDate = isValid(parsedDate);
+  const humanizedDate = hasValidDate
+    ? format(parsedDate, 'MMMM do, yyyy')
+    : 'Date unavailable';
+  const machineDate = hasValidDate
+    ? parsedDate.toISOString()
+    : undefined;
 
   return (
     <Card className={styles.wrapper}>
       <Link href={href} className={styles.title}>
         {title}
       </Link>
-      <time dateTime={publishedOn}>{humanizedDate}</time>
+      <time dateTime={machineDate}>{humanizedDate}</time>
       <p>
         {abstract}{' '}
         <Link

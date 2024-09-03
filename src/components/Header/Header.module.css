@@ -16,6 +16,21 @@
   gap: 16px;
   align-items: center;
 }
+.link {
+  font-size: inherit;
+  font-weight: inherit;
+  color: var(--color-text);
+  text-decoration-color: transparent;
+}
+
+.link:hover {
+  text-decoration-color: var(--color-primary);
+}
+
+.linkActive {
+  color: var(--color-primary);
+  text-decoration-color: var(--color-primary);
+}
 .action {
   display: block;
   border: none;

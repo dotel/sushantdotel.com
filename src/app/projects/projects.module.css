@@ -6,16 +6,25 @@
   margin: 0 auto;
 }
 
-.mainHeading {
-  padding-bottom: 64px;
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 1.5em;
-}
-
-
 .projectsList {
-  display: flex;
-  justify-content: center;
-  gap: 1em;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 3.5rem 2.25rem;
+}
+    .projectsList> :first-child {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: min(100%, 56rem);
+    }
+  
+    @media (max-width: 900px) {
+    .projectsList {
+      grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      
+      .projectsList> :first-child {
+        grid-column: auto;
+      }
 }

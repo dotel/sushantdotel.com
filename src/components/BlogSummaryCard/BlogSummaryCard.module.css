@@ -1,7 +1,14 @@
 .wrapper {
-  width: 100%;
+  width: min(100%, 750px);
+  min-width: 750px;
   max-width: 750px;
   margin-bottom: 32px;
+}
+
+@media (max-width: 56rem) {
+  .wrapper {
+    min-width: 100%;
+  }
 }
 
 .title {

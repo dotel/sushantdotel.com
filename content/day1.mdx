@@ -1,0 +1,44 @@
+---
+title: 'AWS Gen AI Challenge — Day 1'
+abstract: 'Day 1 of the 21-day AWS Gen AI challenge'
+publishedOn: '2026-02-25T19:21:16.584Z'
+tags:
+  - AWSGenAIChallenge
+---
+
+Welcome to day 1! My goal for today is to understand different aws services and tools related to Gen AI, and get my hands dirty! Here's a summary of what I learned today:
+
+**Bedrock** is the core AWS's managed service for experimenting with and deploying pre-trained foundation models. You get access to multiple models (e.g. Claude, Titan) through a single API, without managing infrastructure.
+
+
+<Aside title="Key Bedrock features">
+ Foundation model is a large pre-trained model like GPT-4 that can be adapted to a wide range of tasks. They are called "foundation" models because they serve as the base upon which you can build specific applications through techniques like fine-tuning or RAG.
+
+Building the foundation of a model from scratch is called pre-training. Big companies already do that for you with a lot of guardrails built in. Once you have your foundation model, you can adapt it to your specific use cases through fine-tuning, continued pre-training, or RAG.
+</Aside>
+
+Some other AWS services and tools related to Gen AI:
+- **Bedrock data manipulation**: Turn unstructured data into structured form.
+- **Bedrock Knowledge Base**: vector store for your embeddings that integrates with S3, SharePoint, and Confluence.
+- **Vector storage**: You can choose a storage whenever you create a knowledge base. Use **OpenSearch**(recommended by AWS) or **PostgreSQL** (e.g. pgvector) for vector search and retrieval.
+- **Generative AI application builder**: Low-code way to build Gen AI apps on top of Bedrock.
+- **Bedrock prompt management**: Version and manage prompts in one place.
+- **Bedrock Flow**: Multi-step, multi-agent style workflows.
+- **Amazon SageMaker pipelines**: For automated ML workflows, including testing and validation of models.
+
+
+## Using Bedrock for a POC
+
+Bedrock provides all the tools you need to build a Gen AI POC: 
+
+- **Models**: Multiple FMs behind one API.
+- **Knowledge Base**: For RAG without building pipelines from scratch.
+- **Agents**: For tool use and multi-step reasoning.
+- **Model evaluation**: Evaluate outputs against your own criteria.
+- **Guardrails**: Built-in safety features to prevent harmful outputs.
+
+
+To be continued...
+
+
+

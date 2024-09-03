@@ -10,6 +10,7 @@ import { LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import './styles.css';
+import 'katex/dist/katex.min.css';
 import { cookies } from 'next/headers';
 
 
@@ -29,7 +30,7 @@ const monoFont = Spline_Sans_Mono({
 function RootLayout({ children }) {
   const savedTheme = cookies().get('color-theme')
 
-  const theme = savedTheme?.value || 'light'
+  const theme = savedTheme?.value || 'dark'
 
   return (
     <html

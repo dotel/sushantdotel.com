@@ -31,6 +31,23 @@
   font-weight: 500;
 }
 
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.tagChip {
+  font-size: 0.875rem;
+  padding: 0.2rem 0.625rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-page-border);
+  background: var(--color-page-background);
+  color: var(--color-decorative-900);
+}
 @media (min-width: 35rem) {
   .content p {
     font-size: 1.25rem;

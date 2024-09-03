@@ -17,6 +17,15 @@
   */
   overflow: hidden;
 }
+.wrapper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--color-backdrop);
+}
 .blocker {
   position: absolute;
   inset: calc(var(--stroke-width) * -1);
@@ -26,7 +35,7 @@
     Better to crop it than to stretch it.
   */
   min-width: 800px;
-  height: 80%;
+  height: 100%;
   max-width: revert;
 }
 .blocker path {

@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import CodeSnippet from '@/components/CodeSnippet';
+import Aside from '@/components/Aside';
 import styles from './postSlug.module.css';
 import { loadBlogPost } from '@/helpers/file-helpers';
 import BlogHero from '@/components/BlogHero';
@@ -25,13 +28,20 @@ async function BlogPost({ params }) {
       <BlogHero
         title={blogPost.frontmatter.title}
         publishedOn={new Date()}
+        tags={blogPost.frontmatter.tags}
       />
 
       <div className={styles.page}>
         <br /> 
         <MDXRemote
-          components={{ pre: CodeSnippet }}
+          components={{ pre: CodeSnippet, Aside }}
           source={blogPost.content}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkMath],
+              rehypePlugins: [rehypeKatex],
+            },
+          }}
         />
       </div>
 
