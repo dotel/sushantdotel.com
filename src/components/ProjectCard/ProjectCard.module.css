@@ -1,3 +1,7 @@
 .projectCard {
   flex: 1;
 }
+
+.displayHidden {
+  display: none
+}

@@ -31,7 +31,7 @@ function Footer() {
           <ul className={styles.linkList}>
 
             <li>
-              <a href="https://twitter.com/sushant_dotelnp">
+              <a href="https://twitter.com/sushantd0dotel">
                 Twitter
               </a>
             </li>

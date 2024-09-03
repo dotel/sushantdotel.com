@@ -5,7 +5,7 @@ import styles from './Card.module.css';
 
 function Card({ children, className, ...delegated }) {
   return (
-    <div className={clsx(styles.wrapper, className)} {...delegated}>
+    <div className={clsx(styles.wrapper)} {...delegated}>
       {children}
     </div>
   );
