@@ -1,0 +1,39 @@
+---
+title: 'AWS Gen AI Challenge — Day 2'
+abstract: 'Day 2 of the 21-day AWS Gen AI challenge'
+publishedOn: '2026-02-26T19:21:16.584Z'
+tags:
+  - AWSGenAIChallenge
+---
+
+Work in progress...
+
+Today’s focus was understanding the RAG pipeline and how to build it on AWS. I used a manufacturing-company scenario with scattered manuals and SOPs, and looked at how to turn that unstructured knowledge into something an LLM can reliably use.
+
+The first decision is chunking. Fixed-size chunks (for example, ~300 tokens) are easy and predictable but ignore natural boundaries and can split important sentences. Semantic chunking instead respects paragraphs and headings so each chunk represents a coherent idea. For deeply structured documents like manuals, hierarchical chunking works best: you preserve chapters/sections and can answer both narrow and broad questions with the right level of context.
+
+{/* RAG pipeline illustration */}
+<img
+  src="/images/rag-pipeline.png"
+  alt="RAG pipeline"
+  style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
+/>
+<br/>
+
+After chunking, retrieval alone isn’t enough. A vector search returns the top-k chunks, then a reranker (often a cross-encoder) scores them against the query so only the most relevant chunks reach the LLM.
+
+On the serving side, streaming APIs make chat UIs feel responsive by returning tokens as they’re generated, while batch APIs are better for offline and bulk jobs. Within streaming, REST (HTTP chunked/SSE) is simple to integrate, whereas WebSockets give low-latency, bi-directional communication over a long-lived connection.
+
+On AWS, Bedrock on-demand is the easiest way to start and is ideal for spiky or uncertain traffic. Provisioned Throughput reserves capacity and makes sense once you care about strict SLAs or have fine-tuned models. When you need full control over hardware, networking or open-source models, SageMaker endpoints are a better fit, and cross-region inference helps with latency and resilience.
+
+Lambda ties this together for serverless RAG. For heavy or long-running work, asynchronous invocation avoids timeouts and integrates well with EventBridge or SQS for more reliable pipelines.
+
+**Model selection and routing**
+
+Amazon Nova models cover different trade-offs: Nova 2 Pro for complex reasoning, Nova 2 Lite for fast, cheaper responses, and Nova 2 Sonic for real-time conversation. For deeper customization, Nova Forge or SageMaker’s training capabilities can be used to build or fine-tune models, with agent-guided workflows helping choose the right approach.
+
+Routing can be static in code or dynamic. Bedrock prompt routing can automatically direct requests across models within the same family (Anthropic, Amazon, Meta) to balance quality and cost. You can also implement routing in Lambda behind API Gateway or with Step Functions to orchestrate more complex flows.
+
+**Serverless AI building blocks and infrastructure**
+
+Key serverless components are: Lambda as an abstraction layer, API Gateway as the unified Bedrock interface with auth and monitoring, and AppConfig for dynamic configuration (model choice, routing rules, feature flags). For heavier workloads, AWS offers EC2 GPU instances, AI Factories for on-prem deployment, and SageMaker HyperPod for large-scale training—while still letting you expose models through a serverless, API-led interface in production.
