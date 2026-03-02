@@ -1,0 +1,23 @@
+---
+title: 'AWS Gen AI Challenge — Day 3'
+abstract: 'Day 3 of the 21-day AWS Gen AI challenge'
+publishedOn: '2026-02-27T19:21:16.584Z'
+tags:
+  - AWSGenAIChallenge
+---
+
+Retrieval Mechanisms for FM Augmentation:
+
+
+Evaluation metrics for segmentation quality
+1. Semantic similarity between sentences within each chunk using embedding models.
+2. Apply topic modeling techniques to identify the primary topics within each chunk. Chunks with high cohesion demonstrate clear topic focus with minimal topic mixing. Use techniques like Latent Dirichlet Allocation(LDA) or more modern transformer-based topic models to analyze the topics and their distribution within the chunks.
+3. Coherence scoring
+4. Precision, Recall, F1 score
+
+Using Bedrock Chunking versus Custom chunking using lambda: 4 different types of chunking in Amazon Bedrock: Fixed, Default(cares about semantic boundaries but still 300 tokens), Heirarchical, Semantic. If you need more control over the chunking process, you can use a custom lambda function to chunk the documents. Bedrock native chunking processing cost is included in Knowledge Base pricing. 
+
+
+
+
+

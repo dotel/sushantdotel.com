@@ -1,0 +1,139 @@
+---
+title: 'AWS Gen AI Challenge — Day 4'
+abstract: 'Day 4 of the 21-day AWS Gen AI challenge'
+publishedOn: '2026-03-01T19:21:16.584Z'
+tags:
+  - AWSGenAIChallenge
+---
+
+Today I learned about building resilent AI services. One of the best way to build resilent AI services is to use step function. With step function, you can easily implement circuit breaker pattern to handle errors and retries. For a resilent AI service, you want to: 
+
+<ol>
+  <li> Define service health checks</li>
+  <li> Implement error tracking</li>
+  <li> Configure threshold logic</li>
+  <li> Set up state transitions</li>
+</ol>
+
+<br/>
+
+You want to implement fallback strategies that maintain service continuity even when primary AI services become unavailable or unresponsive. If your best model is down, you can use a fallback model to serve requests and keep your service running.
+
+
+To monitor and optimize circuit breaker performance, you can use cloudwatch to monitor the circuit breaker state and the number of errors.
+
+Use AWS Security Hub for Near-real-time risk analytics of your AI services.
+
+2. Configure cross-region inference to confirm model availability during regional failures. Enabling cross-region inference is a service-level feature  and affects all model invocations from your account. 
+
+
+3. Graceful Degradation for AI Systems: Implement fallback strategies that maintain essential functionality during AI system disruptions
+
+4. Response caching strategies: Implement intelligent caching using context, similarity. Another approach is to precompute FAQ responses. 
+
+
+
+**Data validation and processing pipelines**: 
+Three types of data forms in AI systems: 
+1. Prompts
+2. RAG data
+3. Fine-tuning dataset
+
+Implement data validation and processing pipelines. Use tools like Glue, Amazon SageMaker Data Wrangler, and AWS Lambda and AWS Step Functions, complete with quality gates and feedback loops that maintain data integrity throughout your AI processing pipeline. You can also use Amazon Nova models for validation that involves multi-step reasoning. Or for test preprocessing.
+
+
+Use AWS Glue: Data quality definition language(DQDL) is a domain-specific language for defining data quality rules.
+eg: 
+
+```
+Rules = [
+    ColumnLength "content" between 100 and 10000,
+    ColumnValues "content" matches "[\\p{L}\\p{N}\\p{P}\\p{Z}]+",
+    IsComplete "content",
+    CustomSql "SELECT COUNT(*) FROM primary WHERE content LIKE '%[ERROR]%'" = 0
+]
+```
+
+Use AWS Step Functions to orchestrate validation workflows across multiple services. And cloudwatch(metrics,dashboards, alarms) for data quality tracking
+```
+# Key metrics to monitor
+ValidationSuccessRate = (PassedValidations / TotalValidations) * 100
+ContentLengthMean = Average(ContentLength)
+ContentLengthStdDev = StandardDeviation(ContentLength)
+LanguageDetectionAccuracy = (CorrectLanguageDetections / TotalDetections) * 100
+SafetyScoreDistribution = Histogram(SafetyScores)
+```
+
+
+You can also use CloudWatch anomaly detection to detect anomalies in your data.
+
+
+Use Amazon Bedrock AgentCore to complement traditional validation with AI-powered assessment. 
+
+Once you have anamoly detection in place, integrate with AWS Step Functions, Amazon Simple Notification Service (Amazon SNS), and AWS Lambda to create comprehensive response systems that automatically address detected issues.
+
+
+Use Amazon Nova Act for automated data workflows. Eg, if a website doesn't have APIs to scrape data, you can use Amazon Nova Act to scrape the data using UI automation agents.
+
+S3 nowadays has vector storage capabilities. You can use it to store your embeddings and perform vector search and retrieval.
+
+
+**Data formatting:**
+Structured Data Preparation for Amazon SageMaker Endpoints: SageMaker endpoints support csv, json and protobuf formats.
+
+When you're preparing conversation data for different models, the format might differ.
+```
+{
+ "anthropic_version": "",
+ "max_tokens": ,
+ "messages": [
+   {
+     "role": "user",
+     "content": ""
+   },
+   {
+     "role": "assistant",
+     "content": ""
+   },
+ ],
+ "system": ""
+}
+```
+
+```
+{
+  "model": "",
+  "messages": [
+    {
+      "role": "system",
+      "content": ""
+    },
+    {
+      "role": "user",
+      "content": ""
+    },
+  ],
+  "temperature": 0.7
+}
+```
+
+
+**Conversation history management techniques**: When conversations exceed token limits, you implement truncation strategies to maintain essential context:
+
+<ol>
+  <li>Sliding window: Keep the most recent N messages</li>
+  <li>Summarization: Compress older messages into summaries</li>
+  <li>Importance-based: Retain messages with high relevance scores</li>
+  <li>Hybrid approach: Combine multiple techniques based on content type</li>
+</ol>
+
+You can use Bedrock or Amazon comprehend for entity recognition and extraction.
+And use those entities in context to get better responses.
+
+
+For multi-modal input, you can either use Bedrock(Nova models support multi modal, Claude support vision etc) or use Sagemaker Processing.
+
+
+Step function are of two types: Standard and Express. Standard can run for up to 1 year and Express can run for up to 5 minutes(and log can be sent to cloudwatch). Retries are default in every step. But fallback is not default. Since step function is the orchestrator, you assign execution roles to the step functions and not the individual steps.
+
+
