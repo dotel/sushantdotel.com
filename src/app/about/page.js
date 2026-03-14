@@ -17,7 +17,7 @@ async function About(params) {
       <p className="text-lg text-gray-700 mb-6">
         I thrive working as a full stack engineer where I can design responsive frontends, engineer efficient backends, and explore the latest in AI toolkits and dev frameworks.
         Recently, I&apos;ve been diving into tools like <span className="font-medium">LangChain</span>,
-        integrating <span className="font-medium">OpenAI APIs</span>, and exploring how intelligent systems can be embedded into real-world applications. Hence #21DaysOfDataAndCloud challenge! I also plan to stream my learning process on <a href='https://www.youtube.com/@sushantdotel'>YouTube</a> so if you want to see my progress, you can subscribe to my channel!
+        integrating <span className="font-medium">OpenAI APIs</span>, and exploring how intelligent systems can be embedded into real-world applications. Hence #21DaysOfAIAndCloud challenge! I also plan to stream my learning process on <a href='https://www.youtube.com/@sushantdotel'>YouTube</a> so if you want to see my progress, you can subscribe to my channel!
       </p>
 
       <p className="text-lg text-gray-700 mt-6">

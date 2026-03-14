@@ -76,9 +76,9 @@ Documents metadata considerations:
 4. s3 meta data availability: 23 regions 
 
 
-Enterprise Content integration for Gen AI:
-1. Amazon Kendra for indexing and querying: Data sources: Sharepoint, Confluence, File systems, Databases etc.
-2. 
+If you're storing documents in S3 for AI applications, attach structured metadata so retrieval systems and AI models can filter, rank, and understand documents better.
+
+Enterprise Content integration for Gen AI: Amazon Kendra for indexing and querying: Data sources: Sharepoint, Confluence, File systems, Databases etc.
 
 On the serving side, streaming APIs make chat UIs feel responsive by returning tokens as they're generated, while batch APIs are better for offline and bulk jobs. Within streaming, REST (HTTP chunked/SSE) is simple to integrate, whereas WebSockets give low-latency, bi-directional communication over a long-lived connection.
 

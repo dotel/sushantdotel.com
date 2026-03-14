@@ -6,18 +6,17 @@ tags:
   - AWSGenAIChallenge
 ---
 
-Retrieval Mechanisms for FM Augmentation:
+Today I learned about retrieval mechanisms for foundation model augmentation, especially how document chunking affects retrieval quality. To evaluate segmentation quality, you can measure the semantic similarity between sentences inside each chunk using embedding models. You can also use topic modeling to check whether each chunk stays focused on one main topic instead of mixing too many ideas together. Other useful evaluation methods include coherence scoring and standard metrics like precision, recall, and F1 score.
+
+I also learned about using Amazon Bedrock chunking versus custom chunking with AWS Lambda. Amazon Bedrock supports four chunking strategies: fixed, default, hierarchical, and semantic. The default option tries to respect semantic boundaries but still works around a 300-token size. If you need more control over how documents are split, you can use a custom Lambda function instead. One nice detail is that Bedrock's native chunking cost is already included in Knowledge Base pricing.
 
 
-Evaluation metrics for segmentation quality
-1. Semantic similarity between sentences within each chunk using embedding models.
-2. Apply topic modeling techniques to identify the primary topics within each chunk. Chunks with high cohesion demonstrate clear topic focus with minimal topic mixing. Use techniques like Latent Dirichlet Allocation(LDA) or more modern transformer-based topic models to analyze the topics and their distribution within the chunks.
-3. Coherence scoring
-4. Precision, Recall, F1 score
 
-Using Bedrock Chunking versus Custom chunking using lambda: 4 different types of chunking in Amazon Bedrock: Fixed, Default(cares about semantic boundaries but still 300 tokens), Heirarchical, Semantic. If you need more control over the chunking process, you can use a custom lambda function to chunk the documents. Bedrock native chunking processing cost is included in Knowledge Base pricing. 
+Another topic was KNN, which means finding the `K` most similar vectors to a query vector. This is useful for semantic search, recommendation systems, RAG document retrieval. A naive KNN search compares the query against every vector in the dataset, which becomes slow `O(N)` as the dataset grows, so most real systems rely on Approximate Nearest Neighbor, or ANN, methods.
 
+One of the most popular ANN algorithms is HNSW, which stands for Hierarchical Navigable Small World. Instead of scanning every vector, HNSW builds a graph where each vector is a node connected to similar neighbors. It then uses a greedy graph traversal process to move closer to the vectors that best match the query. Because it only explores a small part of the full dataset, it is much faster in practice and often performs around `O(log N)`.
 
+HNSW also uses a layered structure to make search efficient. The top layers contain fewer nodes for fast navigation, the middle layers narrow the search area, and the bottom layer contains the detailed neighborhood where the nearest matches are found. The search starts from the top and gradually moves downward until it reaches the closest vectors.
 
 
 

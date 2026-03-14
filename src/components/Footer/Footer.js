@@ -27,9 +27,16 @@ function Footer() {
                 Linkedin
               </a>
             </li>
-            <a href="https://github.com/dotel">
-              Github
-            </a>
+            <li>
+              <a href="https://github.com/dotel">
+                Github
+              </a>
+            </li>
+            <li>
+              <a href="/feed.xml" title="RSS Feed">
+                RSS
+              </a>
+            </li>
           </ul>
         </nav>
       </div>

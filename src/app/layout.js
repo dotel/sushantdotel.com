@@ -5,13 +5,12 @@ import {
 } from 'next/font/google';
 import clsx from 'clsx';
 
-import { LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
+import { LIGHT_TOKENS, DARK_TOKENS, SITE_URL } from '@/constants';
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import './styles.css';
 import 'katex/dist/katex.min.css';
-import { cookies } from 'next/headers';
 
 
 const mainFont = Work_Sans({
@@ -28,9 +27,7 @@ const monoFont = Spline_Sans_Mono({
 });
 
 function RootLayout({ children }) {
-  const savedTheme = cookies().get('color-theme')
-
-  const theme = savedTheme?.value || 'dark'
+  const theme = 'dark'; // Light theme disabled for now
 
   return (
     <html
@@ -41,6 +38,12 @@ function RootLayout({ children }) {
     >
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="RSS Feed"
+          href={`${SITE_URL}/feed.xml`}
+        />
       </head>
 
       <body>

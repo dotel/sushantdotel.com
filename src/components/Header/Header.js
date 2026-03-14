@@ -8,6 +8,7 @@ import Logo from '@/components/Logo';
 
 import styles from './Header.module.css';
 import DarkLightToggle from '../DarkLightToggle/DarkLightToggle';
+import { LIGHT_THEME_ENABLED } from '@/constants';
 
 function Header({ theme, className, ...delegated }) {
   const pathname = usePathname();
@@ -34,7 +35,7 @@ function Header({ theme, className, ...delegated }) {
         >
           About
         </Link>
-        <DarkLightToggle initialTheme={theme} />
+        {LIGHT_THEME_ENABLED && <DarkLightToggle initialTheme={theme} />}
       </div>
     </header>
   );

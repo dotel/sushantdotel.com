@@ -1,0 +1,52 @@
+---
+title: 'AWS Gen AI Challenge — Day 6'
+abstract: 'Day 5 of the 21-day AWS Gen AI challenge'
+publishedOn: '2026-03-14T19:21:16.584Z'
+tags:
+  - AWSGenAIChallenge
+---
+
+**Prompt management and engineering**:
+
+Use foundation model for intent classification and Comprehend for Structured data extraction and sentiment analysis.
+
+Use Step function for orchestration. Based on the intent, you can use different models and services to process the query. You can also setup human esclation workflows this way.
+
+Store conversation state in durable storage systems that survive individual component failures. Store in DynamoDB, or other durable storage systems. 
+
+Use session-id and user-id to track the conversation and store the conversation state. Use DynamoDB's to store varying types of contextual data while maintaining query efficiency and ensuring that context retrieval supports your conversation flow requirements and business logic. Setup a TTL for the conversation state to avoid storing it indefinitely.
+
+For efficiency: 
+1. Choose partition keys that distribute data evenly across DynamoDB partitions. use session-id or user-id for partition key.
+2. Use sort keys that support chronological retrieval and range queries for conversation history
+3. create Global Secondary Indexes (GSIs) that support alternative access patterns such as querying by intent type
+4. Optimize query size and pagination to avoid large response times.
+
+
+Use Bedrock prompt management to version and manage prompts. This helps you isolate the prompt changes from the code changes and makes it easier to manage prompts. You can also use prompt templates to reuse prompts across different models and services within your organization. Like most other AWS services, when you use Bedrock prompt management, you get audit trails for prompt changes using CloudTrail. You can also use CloudWatch to monitor the prompt usage and performance.
+
+**Prompt engineering:**
+For a focused response, you'd assign a role to the prompt.
+1. Define appropriate role characteristics
+2. Specify role-relevant knowledge and constraints
+3. Establish role-appropriate communication patterns
+
+
+**Validating responses**: 
+Validation can be deterministic like checking if the response is a valid JSON or probabilistic like checking if the response is a valid response for a given prompt(e.g. for a QA bot). Use lambda functions to validate the responses.
+
+Use synchronous validation for safety-critical tasks, format validation and compliance checks that can't be deferred. Use asynchronous validation for quality assessment.
+
+
+Use Cloudwatch custom metrics to monitor the validation performance. Use Cloudwatch alarms to notify you when the validation performance is below a certain threshold. Use Cloudwatch Events or EventBridge to trigger regression tests on regular schedules. 
+
+
+**Model Customization with SageMaker AI**
+Sometimes you might need to go beyond prompt engineering to meet your specific use case requirements. SageMaker AI offers customization capabilities complement prompt engineering strategies by enabling custom models when prompt optimization alone cannot meet requirements.
+1. Serverless Reinforcement Learning(RL) for training and fine-tuning models: auto provisions infra required for training and fine-tuning models.
+2. AI Agent-Guided Workflow: Simplifies the customization process by providing intelligent assistance throughout model customization.
+
+
+AWS Bedrock Flows is a workflow orchestration tool designed specifically for generative AI pipelines. While Step Functions can orchestrate AI model calls, you have to manually handle prompts, outputs, branching, and retries. Bedrock Flows, on the other hand, provides native support for foundation models, including sequential or parallel model calls, prompt templates, conditional logic, and output transformations, and makes it much easier to chain prompts like summarization, entity extraction, or content generation.
+
+

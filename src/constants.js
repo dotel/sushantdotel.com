@@ -1,4 +1,6 @@
 export const BLOG_TITLE = 'Sushant Dotel';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://sushantdotel.com';
+export const LIGHT_THEME_ENABLED = false;
 
 // Refined, modern light theme – soft neutral backdrop with an indigo accent.
 export const LIGHT_COLORS = {

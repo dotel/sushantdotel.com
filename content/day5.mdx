@@ -1,0 +1,100 @@
+---
+title: 'AWS Gen AI Challenge — Day 5'
+abstract: 'Day 5 of the 21-day AWS Gen AI challenge'
+publishedOn: '2026-03-13T19:21:16.584Z'
+tags:
+  - AWSGenAIChallenge
+---
+
+Today I learned more about vector search using Bedrock Knowledge Base.
+
+Creating Knowledge Bases involves selecting appropriate vector storage backends, configuring data source connections, and optimizing settings for your specific use case requirements. 
+
+To setup a knowledge base, you need to:
+1. Select a vector storage(OpenSearch, PostgreSQL, s3 vector store, Mongo, pinecone etc)
+2. Choose an embedding model. Use Amazon titan embedding model for general purpose applications. 
+3. Map vector embeddings, text content, and metadata fields for efficient query processing.
+4. Setup appropriate security settings and permissions.
+
+Next step is to configure your data source. It could be s3, Web Crawler, API/Database or Real-time data streams(kinesis, eventbridge etc)
+
+Then, you need to setup data ingestion pipelines to transform raw documents into searchable knowledge through automated processing workflows that handle document parsing, chunking, embedding generation, and indexing operations.
+
+Once everything is setup, you can start querying your knowledge base using the Bedrock API.
+
+```python
+def query_knowledge_base(knowledge_base_id, query_text, max_results=5):
+  response = bedrock_agent_runtime.retrieve(
+      knowledgeBaseId=knowledge_base_id,
+      retrievalQuery={
+          'text': query_text
+      },
+      retrievalConfiguration={
+          'vectorSearchConfiguration': {
+              'numberOfResults': max_results,
+              'overrideSearchType': 'HYBRID'
+          }
+      }
+  )
+  return [
+      {
+          'content': result['content']['text'],
+          'score': result['score'],
+          'metadata': result['metadata'],
+          'location': result['location']
+      }
+      for result in response['retrievalResults']
+  ]
+```
+
+
+Another major issue is data freshness. You need to update the knowledge base periodically to keep it up to date. For this, use change data capture(CDC) to update the knowledge base when content changes. You also need to setup proper metrics and monitoring to track the freshness and accuracy/completeness of the knowledge base.
+
+Other performance metrics you should monitor are query response times, ingestion throughput, and system resource utilization to confirm optimal Knowledge Base performance.
+
+Additionally, once you get your gen ai application working,you may also want to use advanced retrival strategies like:
+1. Multi-vector retrieval: Use different embedding models for different types of content or to store different semantic contexts. Use fusion algorithms to combine multiple embeddings for better retrieval.  Use ensemble methods that use the strengths of different embedding approaches while mitigating individual model limitations.
+2. Implement contextual ranking algorithms that consider user context, query history, and application-specific factors when ordering search results. You can even use ML to train a ranking model to rank the search results based on user preferences and behavior.
+3. Implement temporal factor and relevance scoring to prioritize more recent and relevant content.
+4. Configure domain-aware ranking algorithms that understand field-specific terminology, concepts, and relationships.
+
+Next step is to implement reranking. Setup two step process for your retrieval system: first retrieve the top-k results and then rerank the results based on the user query and context. Implement measurement frameworks that quantify the quality improvements achieved through reranking, including metrics such as precision at k, normalized discounted cumulative gain (NDCG), and mean reciprocal rank (MRR).
+
+There's different types of reranker models you can use:
+1. Cross-encoder versus bi-encoder architectures: Use cross-encoder architectures when you need deep interaction modeling between queries and documents. Cross-encoders capture complex semantic relationships but require more computational resources for each comparison. Choose bi-encoder architectures when you need efficient processing. Bi-encoders process queries and documents separately for faster similarity calculations but may miss subtle interaction patterns.
+
+2. Dense versus sparse reranking: Dense approaches use continuous vector representations for excellent semantic performance but may struggle with exact term matching. Use sparse approaches when you need to prioritize exact term matches.
+
+
+OpenSearch implementation with reranking: To implement reranking in opensearch, you need to setup, 1. First pass retrieval configuration, Candidate selection optimization, and integration archicture pattern, i.e. how do you architect the integration between OpenSearch retrieval and Bedrock reranking to minimize latency while maximizing search quality? 
+
+After reranking, you can use fusion strategies for reranked search results. If you're using opensearch as your vector store, you can use RRF(Reciprocal Rank Fusion) to combine the scores of the reranked results. RRF is effective when combining results from systems with different scoring mechanisms, as it focuses on ranking positions rather than absolute scores.
+
+
+Advanced query processing technique: 
+
+1. Query expansion:
+```python
+expansion_prompt = """
+Expand the following query to include related terms, synonyms, and alternative expressions while preserving the original intent:
+Query: {original_query}
+Provide 3-5 related terms that would help find relevant information:
+"""
+# Use the prompt with Bedrock
+formatted_prompt = expansion_prompt.format(original_query="machine learning algorithms")
+response = bedrock_client.invoke_model(
+   modelId="anthropic.claude-3-sonnet-20240229-v1:0",
+   body=json.dumps({"messages": [{"role": "user", "content": formatted_prompt}]})
+)
+```
+2. Query decomposition with lambda: Decompose complex queries into simpler sub-queries that can be processed by different models or services using lambda functions. Synthesize the results of these sub-queries into a final response.
+
+
+Episodic Memory feature of AgentCore seamlessly enhances existing query workflows across five common patterns.
+
+Query expansion: Store patterns to improve future expansions
+Query decomposition: Reference previous successful strategies
+Multi-turn conversations: Maintain context without growing prompts
+User personalization: Remember preferences across sessions
+Error recovery: Reference previous successful interactions
+
