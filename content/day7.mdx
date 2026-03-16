@@ -1,0 +1,57 @@
+---
+title: 'AWS Gen AI Challenge — Day 7'
+abstract: 'Agentic AI in AWS'
+publishedOn: '2026-03-15T19:21:16.584Z'
+tags:
+  - AWSGenAIChallenge
+---
+
+Today I learned about agentic AI in AWS. You can create an agent and add action groups to it. Action groups are collection of actions that the agent can perform. You simply provide an openAPI schema file that defines the actions as well as the lambda functions that implement the actions. The agent can then use the action groups to perform the actions.
+
+```
+openapi: 3.0.0
+info:
+  title: GetWeather API
+  version: 1.0.0
+  description: gets weather
+paths:
+  /getWeather/{location}/:
+    get:
+      summary: gets weather in Celsius
+      description: gets weather in Celsius
+      operationId: getWeather
+      parameters:
+        - name: location
+          in: path
+          description: location name
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: weather in Celsius
+          content:
+            application/json:
+              schema:
+                type: string
+```
+Other things that you can do to your agent:
+1. Add system prompt to the agent.
+2. Add memory to the agent.
+3. Link to a knowledge base.
+4. Add guardrails to the agent.
+5. You can also setup multi-agent workflows. Select one agent as a supervisor and other agents as subordinates.
+
+If you want to build your own agent, you can either use Langchain or Strands agents(Maintained by AWS) to create your agent.
+
+With strands you get agent configuration, prompt engineering, tools integration, memory management(not long term memory, but you can use Agentcore for that), and evaluation all in one place. You can also create multi agent workflows like Graphs, Swarm, or Workflow. Use graphs for thinks like customer support, swarm for tasks that require exploration, synthesizing information from multiple places, collaborative handoffs etc, and workflow when there's fixed task graph that an agent needs to follow.
+
+
+For complex tasks, you can use the design patterns like: Chain of Thought, Feedback Loops, and Agent Collaboration. Use step functions to orchestrate the workflows. Each agent is a lambda function.
+
+
+More on this tomorrow...
+
+
+Today, I also followed and built character level transformer model using pytorch. [Link to the video](https://www.youtube.com/watch?v=kCc8FmEb1nY)
+
