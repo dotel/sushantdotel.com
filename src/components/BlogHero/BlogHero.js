@@ -1,7 +1,9 @@
 import React from 'react';
-import { format } from 'date-fns';
+import Link from 'next/link';
+import { format, isValid, parseISO } from 'date-fns';
 import clsx from 'clsx';
 
+import Container from '@/components/Container';
 import styles from './BlogHero.module.css';
 
 function BlogHero({
@@ -11,34 +13,42 @@ function BlogHero({
   className,
   ...delegated
 }) {
-  const humanizedDate = format(
-    new Date(publishedOn),
-    'MMMM do, yyyy'
-  );
+  const parsed =
+    typeof publishedOn === 'string'
+      ? parseISO(publishedOn)
+      : new Date(publishedOn);
+  const valid = isValid(parsed);
+  const humanized = valid ? format(parsed, 'MMMM do, yyyy') : null;
+  const machine = valid ? parsed.toISOString() : undefined;
 
   return (
     <header
       className={clsx(styles.wrapper, className)}
       {...delegated}
     >
-      <div className={styles.content}>
-        <h1>{title}</h1>
-        <p>
-          Published on{' '}
-          <time dateTime={publishedOn}>
-            {humanizedDate}
-          </time>
-        </p>
+      <Container className={styles.content}>
+        <Link href="/writing" className={styles.backLink}>
+          <span aria-hidden="true">←</span> All blogs
+        </Link>
+
         {tags.length > 0 && (
-          <ul className={styles.tagList}>
-            {tags.map(tag => (
+          <ul className={styles.tagList} aria-label="Tags">
+            {tags.map((tag) => (
               <li key={tag} className={styles.tagChip}>
                 {tag}
               </li>
             ))}
           </ul>
         )}
-      </div>
+
+        <h1 className={styles.title}>{title}</h1>
+
+        {humanized && (
+          <p className={styles.meta}>
+            <time dateTime={machine}>{humanized}</time>
+          </p>
+        )}
+      </Container>
     </header>
   );
 }

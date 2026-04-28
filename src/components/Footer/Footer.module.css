@@ -1,65 +1,167 @@
 .wrapper {
   position: relative;
-  display: flex;
-  justify-content: center;
-  text-align: center;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid var(--color-page-border);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--color-accent-soft) 100%
+  );
 }
 
-.content {
-  position: relative;
+.inner {
+  padding-top: clamp(3rem, 5vw, 4rem);
+  padding-bottom: clamp(2rem, 3vw, 2.5rem);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--color-page-border);
+}
+
+.brand {
+  max-width: 26rem;
+}
+
+.brandName {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.brandTag {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--color-muted-text);
+  line-height: 1.55;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+}
+
+.column {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 64px;
-  width: 100%;
-  max-width: var(--content-width);
-  padding: 40px var(--viewport-padding);
+  gap: 0.85rem;
 }
 
-.attribution {
-  margin-top: 24px;
-  font-size: 0.875rem;
-  color: var(--color-decorative-900);
-  max-width: 18rem;
+.columnTitle {
+  margin: 0;
+  font-family: var(--font-family-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted-text);
+  font-weight: 500;
 }
 
-.attribution a {
-  color: var(--color-gray-900);
-  text-decoration: none;
-  font-weight: 700;
-}
-.attribution a:hover {
-  text-decoration: revert;
-  text-underline-offset: 0.125em;
-  text-decoration-thickness: 1.5px;
-}
-
-.linkHeading {
-  font-size: 1.25rem;
-}
-
-.linkList {
-  margin-top: 24px;
-  list-style-type: none;
+.columnList {
+  list-style: none;
   padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
-.linkList li:not(:last-child) {
-  margin-bottom: 8px;
-}
-.linkList a {
+
+.columnLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+  color: var(--color-text);
   text-decoration: none;
-  font-size: 1rem;
+  transition: color 200ms var(--ease-out-quart);
 }
 
-@media (min-width: 35rem) {
-  .wrapper {
-    text-align: revert;
-  }
+.columnLink:hover {
+  color: var(--color-primary);
+}
 
-  .content {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 32px;
+.extArrow {
+  font-family: var(--font-family-mono);
+  font-size: 0.7rem;
+  color: var(--color-muted-text);
+  transition: transform 200ms var(--ease-out-quart);
+}
+
+.columnLink:hover .extArrow {
+  transform: translate(2px, -2px);
+  color: var(--color-primary);
+}
+
+.now {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding-top: 1.25rem;
+  font-size: 0.88rem;
+  color: var(--color-muted-text);
+}
+
+.nowLabel {
+  font-family: var(--font-family-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-chip-border);
+}
+
+.nowText {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.15em;
+  color: var(--color-text);
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  background: var(--color-primary);
+  margin-left: 0.2em;
+  transform: translateY(0.12em);
+  animation: blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; }
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  font-size: 0.82rem;
+  color: var(--color-muted-text);
+}
+
+.copy {
+  margin: 0;
+}
+
+@media (min-width: 48rem) {
+  .top {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr);
+    gap: 3rem;
   }
 }

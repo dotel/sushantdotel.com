@@ -1,6 +1,6 @@
 ---
 title: 'AWS Gen AI Challenge — Day 3'
-abstract: 'Day 3 of the 21-day AWS Gen AI challenge'
+abstract: 'Chunking evaluation, KNN, HNSW'
 publishedOn: '2026-02-27T19:21:16.584Z'
 tags:
   - AWSGenAIChallenge
@@ -17,6 +17,5 @@ Another topic was KNN, which means finding the `K` most similar vectors to a que
 One of the most popular ANN algorithms is HNSW, which stands for Hierarchical Navigable Small World. Instead of scanning every vector, HNSW builds a graph where each vector is a node connected to similar neighbors. It then uses a greedy graph traversal process to move closer to the vectors that best match the query. Because it only explores a small part of the full dataset, it is much faster in practice and often performs around `O(log N)`.
 
 HNSW also uses a layered structure to make search efficient. The top layers contain fewer nodes for fast navigation, the middle layers narrow the search area, and the bottom layer contains the detailed neighborhood where the nearest matches are found. The search starts from the top and gradually moves downward until it reaches the closest vectors.
-
 
 

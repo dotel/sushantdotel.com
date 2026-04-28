@@ -1,6 +1,6 @@
 ---
 title: 'AWS Gen AI Challenge — Day 4'
-abstract: 'Day 4 of the 21-day AWS Gen AI challenge'
+abstract: 'Resilient AI services, Step Functions, data validation'
 publishedOn: '2026-03-01T19:21:16.584Z'
 tags:
   - AWSGenAIChallenge
@@ -135,5 +135,4 @@ For multi-modal input, you can either use Bedrock(Nova models support multi moda
 
 
 Step function are of two types: Standard and Express. Standard can run for up to 1 year and Express can run for up to 5 minutes(and log can be sent to cloudwatch). Retries are default in every step. But fallback is not default. Since step function is the orchestrator, you assign execution roles to the step functions and not the individual steps.
-
 

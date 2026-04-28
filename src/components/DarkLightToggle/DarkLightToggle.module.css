@@ -1,16 +1,71 @@
 .wrapper {
-  display: flex;
+  position: relative;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 4rem;
-  height: 4rem;
-  border: none;
-  border-radius: 1000px;
-  background: transparent;
-  color: inherit;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-chip-border);
+  border-radius: 999px;
+  background: var(--color-chip-background);
+  color: var(--color-text);
   cursor: pointer;
+  transition: border-color 200ms var(--ease-out-quart),
+    color 200ms var(--ease-out-quart),
+    transform 200ms var(--ease-out-quart);
 }
 
 .wrapper:hover {
-  background: hsl(0deg 0% 50% / 0.2);
+  border-color: var(--color-card-hover-border);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.wrapper:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.wrapper :global(svg) {
+  width: 1.05rem;
+  height: 1.05rem;
+  transition: transform 400ms var(--ease-spring);
+}
+
+.wrapper:hover :global(svg) {
+  transform: rotate(-18deg);
+}
+
+.kbd {
+  position: absolute;
+  bottom: -0.5rem;
+  right: -0.55rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.05rem;
+  height: 1.05rem;
+  padding: 0 0.28rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--color-muted-text);
+  background: var(--color-card-background);
+  border: 1px solid var(--color-chip-border);
+  border-radius: 5px;
+  opacity: 0;
+  transform: translateY(2px) scale(0.85);
+  transition: opacity 180ms var(--ease-out-quart),
+    transform 220ms var(--ease-spring);
+  pointer-events: none;
+}
+
+.wrapper:hover .kbd,
+.wrapper:focus-visible .kbd {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (max-width: 35rem) {
+  .kbd { display: none; }
 }

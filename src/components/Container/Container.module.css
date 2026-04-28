@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--viewport-padding);
+  padding-right: var(--viewport-padding);
+}
+
+.default {
+  max-width: var(--content-width);
+}
+
+.wide {
+  max-width: var(--wide-content-width);
+}
+
+.full {
+  max-width: var(--outer-content-width);
+}
+
+.prose {
+  max-width: 42rem;
+}

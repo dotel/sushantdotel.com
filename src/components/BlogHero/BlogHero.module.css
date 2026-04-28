@@ -1,55 +1,91 @@
 .wrapper {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
   width: 100%;
-  max-width: var(--outer-content-width);
-  margin: 0 auto;
+  isolation: isolate;
+}
+
+.wrapper::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(90vw, 900px);
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle at center,
+    var(--color-accent-glow),
+    transparent 60%
+  );
+  filter: blur(60px);
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .content {
-  position: relative;
-  width: 100%;
-  max-width: var(--content-width);
-  padding: var(--viewport-padding);
-  padding-top: calc(48px + 8vw);
-  padding-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  max-width: 46rem;
 }
 
-.content h1 {
-  margin-bottom: 0.5rem;
-}
-.content p {
-  font-size: 1.125rem;
-  color: var(--color-decorative-900);
-  margin-bottom: 0px;
-  font-weight: 400;
-}
-.content time {
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
   font-weight: 500;
+  color: var(--color-muted-text);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: color 200ms var(--ease-out-quart),
+    gap 200ms var(--ease-out-quart);
+}
+
+.backLink:hover {
+  color: var(--color-primary);
+  gap: 0.55rem;
 }
 
 .tagList {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
   list-style: none;
   padding: 0;
-  margin: 1rem 0 0;
+  margin: 0 0 1.25rem;
 }
 
 .tagChip {
-  font-size: 0.875rem;
-  padding: 0.2rem 0.625rem;
-  border-radius: 999px;
-  border: 1px solid var(--color-page-border);
-  background: var(--color-page-background);
-  color: var(--color-decorative-900);
+  font-family: var(--font-family-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-chip-border);
+  background: var(--color-chip-background);
+  color: var(--color-muted-text);
 }
-@media (min-width: 35rem) {
-  .content p {
-    font-size: 1.25rem;
-  }
+
+.title {
+  margin: 0 0 0.85rem;
+  font-size: clamp(1.875rem, 4.5vw, 2.85rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.meta {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--color-muted-text);
+  font-family: var(--font-family-mono);
+  letter-spacing: 0.02em;
+}
+
+.meta time {
+  font-weight: 500;
 }

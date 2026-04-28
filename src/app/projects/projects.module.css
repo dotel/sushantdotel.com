@@ -1,30 +1,115 @@
 .wrapper {
-  position: relative;
-  width: 100%;
-  max-width: var(--content-width);
-  padding: 64px var(--viewport-padding);
-  margin: 0 auto;
+  padding-top: clamp(4rem, 8vw, 6rem);
+  padding-bottom: clamp(4rem, 8vw, 7rem);
 }
 
-.projectsList {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: stretch;
-  gap: 3.5rem 2.25rem;
+.featuredSection {
+  margin-bottom: clamp(4rem, 8vw, 6rem);
 }
-    .projectsList> :first-child {
-      grid-column: 1 / -1;
-      justify-self: center;
-      width: min(100%, 56rem);
-    }
-  
-    @media (max-width: 900px) {
-    .projectsList {
-      grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-      
-      .projectsList> :first-child {
-        grid-column: auto;
-      }
+
+.labSection {
+  margin-top: clamp(3rem, 5vw, 5rem);
+}
+
+.projectGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+  gap: 1.5rem;
+}
+
+.projectCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--color-card-border);
+  background: var(--color-card-background);
+  transition: border-color 200ms var(--ease-out-quart),
+    transform 200ms var(--ease-out-quart);
+  height: 100%;
+}
+
+.projectCard:hover {
+  border-color: var(--color-card-hover-border);
+  transform: translateY(-2px);
+}
+
+.projectMedia,
+.projectMediaLink {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.projectMediaLink:hover :global(img) {
+  transform: scale(1.03);
+}
+
+.projectArt {
+  aspect-ratio: 4 / 3;
+}
+
+.projectBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.25rem 0.4rem 0.5rem;
+}
+
+.projectTitle {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.projectDescription {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--color-muted-text);
+  line-height: 1.5;
+}
+
+.projectStack {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.25rem 0 0;
+  padding: 0;
+}
+
+.projectChip {
+  font-family: var(--font-family-mono);
+  font-size: 0.7rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 6px;
+  background: var(--color-chip-background);
+  border: 1px solid var(--color-chip-border);
+  color: var(--color-muted-text);
+}
+
+.projectLinks {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.projectLink {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.projectLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }

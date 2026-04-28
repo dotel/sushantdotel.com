@@ -3,9 +3,15 @@ import {
   Work_Sans,
   Spline_Sans_Mono,
 } from 'next/font/google';
+import { cookies } from 'next/headers';
 import clsx from 'clsx';
 
-import { LIGHT_TOKENS, DARK_TOKENS, SITE_URL } from '@/constants';
+import {
+  LIGHT_TOKENS,
+  DARK_TOKENS,
+  SITE_URL,
+  DEFAULT_THEME,
+} from '@/constants';
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -27,7 +33,10 @@ const monoFont = Spline_Sans_Mono({
 });
 
 function RootLayout({ children }) {
-  const theme = 'dark'; // Light theme disabled for now
+  const savedTheme = cookies().get('color-theme')?.value;
+  const theme = savedTheme === 'dark' || savedTheme === 'light'
+    ? savedTheme
+    : DEFAULT_THEME;
 
   return (
     <html

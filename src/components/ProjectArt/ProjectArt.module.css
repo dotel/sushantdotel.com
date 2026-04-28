@@ -1,0 +1,132 @@
+.imageFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--color-card-border);
+  background: var(--color-card-background);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out-quart);
+}
+
+.gradient {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--color-card-border);
+  isolation: isolate;
+}
+
+.gradient.atlas {
+  background:
+    radial-gradient(
+      ellipse 60% 80% at 20% 20%,
+      hsl(325deg 78% 76% / 0.55),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 70% 60% at 80% 80%,
+      hsl(265deg 70% 60% / 0.45),
+      transparent 60%
+    ),
+    linear-gradient(135deg, hsl(225deg 28% 14%), hsl(240deg 32% 10%));
+}
+
+.gradient.agent {
+  background:
+    radial-gradient(
+      ellipse 70% 80% at 80% 20%,
+      hsl(165deg 70% 60% / 0.4),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 80% at 20% 90%,
+      hsl(195deg 80% 60% / 0.4),
+      transparent 60%
+    ),
+    linear-gradient(135deg, hsl(220deg 28% 14%), hsl(195deg 32% 10%));
+}
+
+.gradientGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, hsl(0deg 0% 100% / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(0deg 0% 100% / 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+}
+
+.gradientGlow {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    hsl(0deg 0% 100% / 0.06),
+    transparent 60%
+  );
+  z-index: 0;
+  filter: blur(20px);
+}
+
+.gradientContent {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  color: hsl(0deg 0% 100% / 0.92);
+}
+
+.gradientLabel {
+  font-family: var(--font-family-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: hsl(0deg 0% 100% / 0.55);
+}
+
+.gradientGlyphs {
+  display: flex;
+  gap: 1rem;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  margin-top: 1.25rem;
+}
+
+.glyph {
+  display: inline-block;
+  animation: glyphFloat 4s ease-in-out infinite;
+  text-shadow: 0 0 24px hsl(0deg 0% 100% / 0.3);
+}
+
+@keyframes glyphFloat {
+  0%, 100% { transform: translateY(0); opacity: 0.92; }
+  50% { transform: translateY(-6px); opacity: 0.6; }
+}
+
+.gradientCaption {
+  font-family: var(--font-family-mono);
+  font-size: 0.85rem;
+  color: hsl(0deg 0% 100% / 0.7);
+  letter-spacing: -0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glyph {
+    animation: none;
+  }
+}
