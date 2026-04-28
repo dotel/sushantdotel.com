@@ -7,8 +7,7 @@ import styles from './Footer.module.css';
 const SOCIAL_LINKS = [
   { label: 'GitHub', href: 'https://github.com/dotel' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/dotel' },
-  { label: 'Twitter', href: 'https://twitter.com/sushantd0tel' },
-  { label: 'YouTube', href: 'https://www.youtube.com/@sushantdotel' },
+{ label: 'YouTube', href: 'https://www.youtube.com/@sushantdotel' },
   { label: 'RSS', href: '/feed.xml' },
 ];
 
